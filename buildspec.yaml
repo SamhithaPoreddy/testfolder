@@ -17,7 +17,7 @@ containers:
                     - aws cloudformation package --template-file samTemplate.yaml --s3-bucket $S3_BUCKET  --output-template-file sam-template-output.yaml
             post_build:
                 commands:
-                    - npm run-script lint
+                    
                     - npm test        
                    
         artifacts:

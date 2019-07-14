@@ -14,3 +14,11 @@ Resources:
           Properties:
             Path: /hello
             Method: GET 
+
+  test:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: test.handler
+      Runtime: nodejs8.10
+      CodeUri: ./
+             

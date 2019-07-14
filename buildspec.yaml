@@ -10,12 +10,15 @@ containers:
             during_build:
                 commands:
                     - npm install
-                    - npm run test
+               
                     - npm install --save-dev mocha
                     - npm install --save-dev should
                     - npm install --save-dev supertest
                     - aws cloudformation package --template-file samTemplate.yaml --s3-bucket $S3_BUCKET  --output-template-file sam-template-output.yaml
-
+            post_build:
+                commands:
+                    - npm run-script lint
+                    - npm test        
                    
         artifacts:
             files:

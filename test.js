@@ -7,6 +7,12 @@ var should = chai.should();
 var simple = require('simple-mock');
 //Lambda
 var lambda = require('lambda_function');
+var supertest = require("supertest");
+var should = require("should");
+
+// This agent refers to PORT where program is runninng.
+
+var server = supertest.agent("https://fkd6qtx3b1.execute-api.us-east-1.amazonaws.com");
 
 describe('SimpleLambda tests', function() {
   describe('Get name', function() {
@@ -15,19 +21,22 @@ describe('SimpleLambda tests', function() {
       simple.mock(lambda, 'getName');
     });
 
-    it('should return \'Tim\' when the mocked with simple-mock', function() {
-      lambda.getName.returnWith('Tim');
 
-      var context = {
-        invokeid: 'invokeid',
-        succeed: function(result) {
-          expect(result).to.equal("Tim");
-          return result;
+    it("should return home page",function(done){
+        this.timeout(15000);
+       // calling home page api
+       server
+       .get("/Prod/user/%7Buser_number%7D?user_number=34870F7303")
+       .expect("Content-type",/json/)
+       .expect(200) // THis is HTTP response
+       .end(function(err,res){
+        if(res.body.error) {
+          done("error")
         }
-      };
-
-      lambda.handler({}, context);
-
-    });
+        console.log(res.body)
+        res.body.should.be.instanceof(Array)
+        done();
+       });
+     });
   });
 });

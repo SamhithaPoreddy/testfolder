@@ -17,7 +17,7 @@ containers:
                     - npm install chai
                     - npm install assert
                     - npm install simple-mock
-                    - 
+                    - npm install lambda-tester --save-dev
                     - aws cloudformation package --template-file samTemplate.yaml --s3-bucket $S3_BUCKET  --output-template-file sam-template-output.yaml
      
                    
